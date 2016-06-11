@@ -1,0 +1,11 @@
+.DS_Store
+*.swp
+*.swn
+*.swo
+*.swp
+*.swm
+*.swl
+.rbx/
+*.rdb
+.idea
+.rbenv-gemsets

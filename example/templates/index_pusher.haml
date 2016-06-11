@@ -1,0 +1,25 @@
+!!!
+%html
+  %head
+    %title Websocket Test
+  %body
+    %h1
+      %span#count
+        0
+      Messages/Sec
+    %script{src: "/pusher.min.js"}
+    :javascript
+      var count = 0
+      Pusher.log = function(data) {
+        console.log('\t\t', data);
+      };
+      var pusher = new Pusher('765ec374ae0a69f4ce44');
+      pusher.bind('pusher:error', function(data) { alert(data['message']) })
+      var myChannel = pusher.subscribe('#{@channel}');
+      myChannel.bind('an_event', function(data) {
+        count++
+      })
+      window.setInterval(function() {
+        document.getElementById('count').innerHTML = count
+        count = 0
+      }, 1000)

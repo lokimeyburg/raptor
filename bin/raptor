@@ -1,0 +1,108 @@
+#!/usr/bin/env ruby -Ku
+
+require 'optparse'
+require 'bundler/setup'
+require 'eventmachine'
+
+options = {
+  api_host: '0.0.0.0', api_port: '4567', websocket_host: '0.0.0.0',
+  websocket_port: '8080', debug: false, redis_address: 'redis://0.0.0.0:6379/0'
+  }
+
+
+OptionParser.new do |opts|
+  opts.on '-h', '--help', 'Display this screen' do
+    puts opts
+    exit
+  end
+
+  opts.on '-k', '--app_key APP_KEY', "Pusher application key. This parameter is required." do |k|
+    options[:app_key] = k
+  end
+
+  opts.on '-s', '--secret SECRET', "Pusher application secret. This parameter is required." do |k|
+    options[:secret] = k
+  end
+
+  opts.on '-r', '--redis_address URL', "Address to bind to (Default: redis://127.0.0.1:6379/0)" do |h|
+    options[:redis_address] = h
+  end
+
+  opts.on '-a', '--api_host HOST', "API service address (Default: 0.0.0.0:4567)" do |p|
+    options[:api_host], options[:api_port] = p.split(':')
+  end
+
+  opts.on '-w', '--websocket_host HOST', "WebSocket service address (Default: 0.0.0.0:8080)" do |p|
+    options[:websocket_host], options[:websocket_port] = p.split(':')
+  end
+
+  opts.on '-i', '--require FILE', "Require a file before starting Raptor" do |p|
+    options[:require] ||= []
+    options[:require] << p
+  end
+
+  opts.on '-p', '--private_key_file FILE', "Private key file for SSL transport" do |p|
+    options[:tls_options] ||= {}
+    options[:tls_options][:private_key_file] = p
+  end
+
+  opts.on '-b', '--webhook_url URL', "Callback URL for webhooks" do |p|
+    options[:webhook_url] = p
+  end
+
+  opts.on '-c', '--cert_file FILE', "Certificate file for SSL transport" do |p|
+    options[:tls_options] ||= {}
+    options[:tls_options][:cert_chain_file] = p
+  end
+
+  opts.on "-v", "--[no-]verbose", "Run verbosely" do |v|
+    options[:debug] = v
+  end
+
+  opts.parse!
+
+  %w<app_key secret>.each do |parameter|
+    unless options[parameter.to_sym]
+      puts "--#{parameter} STRING is a required argument. Use your Pusher #{parameter}.\n"
+      puts opts
+      exit
+    end
+  end
+
+end
+
+
+
+if options[:tls_options]
+  [:cert_chain_file, :private_key_file].each do |param|
+    raise RuntimeError.new "--#{param} does not exist at `#{options[:tls_options][param]}`" unless File.exists? options[:tls_options][param]
+    raise RuntimeError.new "Both --cert_file and --private_key_file need to be specified" unless options[:tls_options][param]
+  end
+end
+
+EM.epoll
+EM.kqueue
+
+EM.run do
+  File.tap { |f| require f.expand_path(f.join(f.dirname(__FILE__),'..', 'raptor.rb')) }
+  Raptor::Config.load options
+  Raptor::Service.run
+
+
+  puts "\n"
+  puts "\n"
+  puts '    ____              __            '
+  puts '   / __ \____ _____  / /_____  _____'
+  puts '  / /_/ / __ `/ __ \/ __/ __ \/ ___/'
+  puts ' / _, _/ /_/ / /_/ / /_/ /_/ / /    '
+  puts '/_/ |_|\__,_/ .___/\__/\____/_/     '
+  puts '           /_/                      '
+  puts "\n"
+  puts "\n"
+
+  puts "Running Raptor v.#{Raptor::VERSION}"
+  puts "\n"
+
+  puts "Raptor API server listening on port #{options[:api_port]}"
+  puts "Raptor WebSocket server listening on port #{options[:websocket_port]}"
+end
