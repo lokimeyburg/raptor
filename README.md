@@ -1,11 +1,5 @@
-# Transponder
+# Raptor Machine
 
-
-Don't do this
-==============
-```
-gem 'raptor'
-```
 
 Do this:
 --------
@@ -29,9 +23,10 @@ Bundler has multiple purposes, one of which is useful for installation.
 
 ##Local development
 
-git clone 'url/to/this/repo/yo'
+```
+git clone 'https://github.com/lokimeyburg/raptor-machine.git'
 bundle install
-dance
+```
 
 ##Running the example
 
@@ -62,8 +57,8 @@ Raptor is smart enough to know if a new channel subscription belongs to the
 same user. It will not send presence messages to subscribers in this case. This
 happens when the user has multiple browser tabs open for example. Using a chat
 room backed by presence channels as a real example, one would not want
-"Barrington" to show up N times in the presence roster because Barrington is a
-retard and has the chat room open in N browser tabs.
+"Loki" to show up N times in the presence roster because Loki is an
+idiot and has the chat room open in N browser tabs.
 
 Raptor was designed to be highly available and partition tolerant with
 eventual consistency, which in practise is instantaneous.
@@ -72,7 +67,7 @@ eventual consistency, which in practise is instantaneous.
 
 ## Requirements
 
-- Ruby 1.9.2-p290 or greater
+- Ruby 2.1.0 or greater
 - Redis
 
 ## Starting the service
@@ -92,18 +87,8 @@ $ raptor --app_key 765ec374ae0a69f4ce44 --secret your-pusher-secret
 If all went to plan you should see the following output to STDOUT
 
 <pre>
-
-    ____              __            
-   / __ \____ _____  / /_____  _____
-  / /_/ / __ `/ __ \/ __/ __ \/ ___/
- / _, _/ /_/ / /_/ / /_/ /_/ / /    
-/_/ |_|\__,_/ .___/\__/\____/_/     
-           /_/                      
-
-
 Raptor API server listening on port 4567
 Raptor WebSocket server listening on port 8080
-
 </pre>
 
 ## Modifying your application code to use the Raptor service
@@ -173,29 +158,7 @@ There a few reasons you might want to use Raptor instead of Pusher, e.g.
 - Remove the network dependency from your test suite.
 - You want to extend the Pusher protocol or have some special requirement. If this applies to you, chances are you are out of luck as Pusher is unlikely to implement something to suit your special use case, and rightly so. With Raptor you are free to modify and extend its behavior anyway that suits your purpose.
 
-# Why did you write Raptor
-
-I wanted to write a non-trivial evented app. I also want to write a book on evented programming in Ruby as I feel there is scant good information available on the topic and this project is handy to show publishers.
-
-Pusher is an awesome service, very reasonably priced, and run by an awesome crew. Give them a spin on your next project.
-
-# Author
-
-- Stevie Graham
-
-# Core Team
-
-- Stevie Graham
-- Mark Burns
-
-# Contributors
-
-- Stevie Graham
-- Mark Burns
-- Florian Gilcher
-- Claudio Poli
-
-&copy; 2011 a Stevie Graham joint.
+&copy; 2013 Loki Meyburg
 
 
 

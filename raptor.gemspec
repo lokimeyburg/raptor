@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version       = '>= 2.0.0'
 
-  s.author                      = 'Loki'
+  s.author                      = 'Loki Meyburg'
   s.email                       = 'loki@medeo.ca'
-  s.homepage                    = 'http://github.com/medeo/raptor'
+  s.homepage                    = 'https://github.com/lokimeyburg/raptor-machine'
 
   s.add_dependency                'eventmachine',     '~> 1.0.3'
   s.add_dependency                'em-hiredis',       '~> 0.2.1'
