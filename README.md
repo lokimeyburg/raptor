@@ -1,31 +1,19 @@
 # Raptor Machine
 
+##What is it?
 
-Do this:
---------
-
-```
-gem install raptor
-redis-server &> /dev/null &
-
-raptor --app_key 765ec374ae0a69f4ce44 --secret 19b74451a08ea35ceed7
-```
-
-Raptor is intended as a server that is easy to install, not a gem inside Rails or Sinatra.
-
-##Typical usage
-
-Raptor is a standalone server ruby implementation of the Pusher protocol.  It
-is not designed to run inside a Rails or sinatra app, but it can be easily
-installed as a gem. 
-
-Bundler has multiple purposes, one of which is useful for installation.
+The Raptor Machine is a simple realtime messaging and presence server written in Ruby. 
+The server is implemented with EventMachine and Redis.
+The API is an implementation of the Pusher protocol and is a drop-in 
+replacement for any app that uses Pusher as their realtime messaging service.
 
 ##Local development
 
 ```
 git clone 'https://github.com/lokimeyburg/raptor-machine.git'
 bundle install
+redis-server &> /dev/null &
+raptor --app_key 765ec374ae0a69f4ce44 --secret 19b74451a08ea35ceed7
 ```
 
 ##Running the example
@@ -36,32 +24,6 @@ Pusher.app_id = '765ec374ae0a69f4ce44'
 Pusher.secret = '19b74451a08ea35ceed7'
 Pusher.key    = '765ec374ae0a69f4ce44'
 ```
-
-##About
-Raptor is an open source server implementation of the Pusher protocol written
-in Ruby. It is designed to scale horizontally across N nodes and to be agnostic
-as to which Raptor node a subscriber is connected to, i.e subscribers to the
-same channel are NOT required to be connected to the same Raptor node.
-Multiple Raptor nodes can sit behind a load balancer with no special
-configuration. In essence it was designed to be very easy to scale.
-
-Presence channel state is shared using Redis. Channels are lazily instantiated
-internally within a given Raptor node when the first subscriber connects. When
-a presence channel is instantiated within a Raptor node, it queries Redis for
-the global state across all nodes within the system for that channel, and then
-copies that state internally. Afterwards, when subscribers connect or
-disconnect the node publishes a presence message to all interested nodes, i.e.
-all nodes with at least one subscriber interested in the given channel.
-
-Raptor is smart enough to know if a new channel subscription belongs to the
-same user. It will not send presence messages to subscribers in this case. This
-happens when the user has multiple browser tabs open for example. Using a chat
-room backed by presence channels as a real example, one would not want
-"Loki" to show up N times in the presence roster because Loki is an
-idiot and has the chat room open in N browser tabs.
-
-Raptor was designed to be highly available and partition tolerant with
-eventual consistency, which in practise is instantaneous.
 
 # How to use it
 
@@ -145,7 +107,7 @@ Raptor supports several configuration options, which can be supplied as command 
 
 -c or --cert_file Certificate file for SSL support. This argument is optional, if given, SSL will be enabled
 
--v or --[no-]verbose This makes Raptor run verbosely, meaning WebSocket frames will be echoed to STDOUT. Useful for debugging
+-v or --verbose Useful for debugging
 </pre>
 
 
@@ -161,4 +123,12 @@ There a few reasons you might want to use Raptor instead of Pusher, e.g.
 &copy; 2013 Loki Meyburg
 
 
+# Credit & Inspiration
+
+Inspired and borrowed from:
+
+https://gist.github.com/gvarela/957367
+https://github.com/palavatv/palava-machine
+https://github.com/stevegraham/slanger
+http://pusher.com/
 

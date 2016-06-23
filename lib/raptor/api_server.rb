@@ -34,7 +34,7 @@ module Raptor
     post '/apps/:app_id/channels/:channel_id/events' do
       authenticate
 
-      publish(params[:channel_id], params['name'],  request.body.read.tap{ |s| s.force_encoding('utf-8') })
+      publish(params[:channel_id], params['name'],  request.body.read.tap{ |s| s.force_encoding('utf-8') }, params[:socket_id])
 
       return {}.to_json
     end
