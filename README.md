@@ -2,10 +2,15 @@
 
 ##What is it?
 
-The Raptor Machine is a simple realtime messaging and presence server written in Ruby. 
+Raptor is a simple realtime messaging and presence server written in Ruby. 
 The server is implemented with EventMachine and Redis.
-The API is an implementation of the Pusher protocol and is a drop-in 
-replacement for any app that uses Pusher as their realtime messaging service.
+The architecture is inspired by other realtime messaging services such as Faye, Pusher and XMPP.
+
+##Install 
+
+```
+$ gem install raptor
+```
 
 ##Local development
 
@@ -127,8 +132,10 @@ There a few reasons you might want to use Raptor instead of Pusher, e.g.
 
 Inspired and borrowed from:
 
-https://gist.github.com/gvarela/957367
-https://github.com/palavatv/palava-machine
-https://github.com/stevegraham/slanger
-http://pusher.com/
+- https://gist.github.com/gvarela/957367
+- https://github.com/amscotti/em_sinatra_chat
+- https://github.com/palavatv/palava-machine
+- https://github.com/stevegraham/slanger
+- http://www.youtube.com/watch?v=4iFBC-xbE9I
+- http://pusher.com/
 
