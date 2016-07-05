@@ -1,4 +1,4 @@
-# Raptor Machine
+# Raptor
 
 ##What is it?
 
