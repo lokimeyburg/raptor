@@ -76,7 +76,6 @@ Pusher.port   = 4567
 You will also need to do the same to the Pusher JavaScript client in your client side JavaScript, e.g
 
 <pre>
-
 <script type="text/javascript">
   ...
 

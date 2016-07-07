@@ -20,11 +20,11 @@ OptionParser.new do |opts|
     options[:app_key] = k
   end
 
-  opts.on '-s', '--secret SECRET', "Pusher application secret. This parameter is required." do |k|
+  opts.on '-s', '--app_secret SECRET', "Pusher application secret. This parameter is required." do |k|
     options[:secret] = k
   end
 
-  opts.on '-r', '--redis_address URL', "Address to bind to (Default: redis://127.0.0.1:6379/0)" do |h|
+  opts.on '-r', '--redis_url URL', "Address to bind to (Default: redis://127.0.0.1:6379/0)" do |h|
     options[:redis_address] = h
   end
 
@@ -36,7 +36,7 @@ OptionParser.new do |opts|
     options[:websocket_host], options[:websocket_port] = p.split(':')
   end
 
-  opts.on '-i', '--require FILE', "Require a file before starting Raptor" do |p|
+  opts.on '-i', '--require_file FILE', "Require a file before starting Raptor" do |p|
     options[:require] ||= []
     options[:require] << p
   end
@@ -50,7 +50,7 @@ OptionParser.new do |opts|
     options[:webhook_url] = p
   end
 
-  opts.on '-c', '--cert_file FILE', "Certificate file for SSL transport" do |p|
+  opts.on '-c', '--certificate_file FILE', "Certificate file for SSL transport" do |p|
     options[:tls_options] ||= {}
     options[:tls_options][:cert_chain_file] = p
   end
@@ -88,21 +88,8 @@ EM.run do
   Raptor::Config.load options
   Raptor::Service.run
 
-
   puts "\n"
+  puts "Raptor #{Raptor::VERSION}"
+  puts "\"Clever girl.\""
   puts "\n"
-  puts '    ____              __            '
-  puts '   / __ \____ _____  / /_____  _____'
-  puts '  / /_/ / __ `/ __ \/ __/ __ \/ ___/'
-  puts ' / _, _/ /_/ / /_/ / /_/ /_/ / /    '
-  puts '/_/ |_|\__,_/ .___/\__/\____/_/     '
-  puts '           /_/                      '
-  puts "\n"
-  puts "\n"
-
-  puts "Running Raptor v.#{Raptor::VERSION}"
-  puts "\n"
-
-  puts "Raptor API server listening on port #{options[:api_port]}"
-  puts "Raptor WebSocket server listening on port #{options[:websocket_port]}"
 end
