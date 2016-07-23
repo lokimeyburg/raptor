@@ -10,7 +10,7 @@ describe 'Integration' do
       messages = em_stream(key: 'bogus_key') do |websocket, messages|
         websocket.callback { EM.stop }
       end
-      messages.should have_attributes count: 1, last_event: 'pusher:error',
+      messages.should have_attributes count: 1, last_event: 'raptor:error',
         connection_established: false, id_present: false
       messages.first['data'] == 'Could not find app by key bogus_key'
     end
@@ -20,7 +20,7 @@ describe 'Integration' do
     it 'should not crash' do
       messages  = em_stream do |websocket, messages|
         websocket.callback do
-          websocket.send("{ event: 'pusher:subscribe', data: { channel: 'MY_CHANNEL'} }23123")
+          websocket.send("{ event: 'raptor:subscribe', data: { channel: 'MY_CHANNEL'} }23123")
           EM.next_tick { EM.stop }
         end
       end

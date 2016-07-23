@@ -30,18 +30,18 @@
         %span#count
           0
         Messages/Second!!!1
-    %script{src: "/pusher.min.js"}
+    %script{src: "/raptor.min.js"}
     :javascript
       var count = 0
-      Pusher.host    = "0.0.0.0"
-      Pusher.ws_port = "8080"
-      Pusher.wss_port = "8080"
-      Pusher.log = function(data) {
+      Raptor.host    = "0.0.0.0"
+      Raptor.ws_port = "8080"
+      Raptor.wss_port = "8080"
+      Raptor.log = function(data) {
         console.log('\t\t', data);
       };
-      var pusher = new Pusher('#{Pusher.key}', {disableStats: true});
-      pusher.bind('pusher:error', function(data) { alert(data['message']) })
-      var myChannel = pusher.subscribe('#{@channel}');
+      var raptor = new Raptor('#{Raptor.key}', {disableStats: true});
+      raptor.bind('raptor:error', function(data) { alert(data['message']) })
+      var myChannel = raptor.subscribe('#{@channel}');
       myChannel.bind('an_event', function(data) {
         document.body.setAttribute('style', 'background-color: ' + data['color'] + ';' );
         count++;

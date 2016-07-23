@@ -4,8 +4,8 @@ require 'lib/raptor/webhook'
 describe 'Raptor::Webhook' do
 
   around do |example|
-    Raptor::Config.load webhook_url: 'https://example.com/pusher',
-      app_key: 'PUSHER_APP_KEY', secret: 'secret'
+    Raptor::Config.load webhook_url: 'https://example.com/raptor',
+      app_key: 'RAPTOR_APP_KEY', secret: 'secret'
     WebMock.enable!
     Timecop.freeze(Time.now) { example.run }
     WebMock.disable!
@@ -24,8 +24,8 @@ describe 'Raptor::Webhook' do
 
       stub_request(:post, Raptor::Config.webhook_url).
         with(body: payload, headers: {
-            "X-Pusher-Key"    => Raptor::Config.app_key,
-            "X-Pusher-Secret" => hmac
+            "X-Raptor-Key"    => Raptor::Config.app_key,
+            "X-Raptor-Secret" => hmac
         }).
         to_return(:status => 200, :body => {}.to_json, :headers => {})
 
@@ -33,8 +33,8 @@ describe 'Raptor::Webhook' do
 
       WebMock.should have_requested(:post, Raptor::Config.webhook_url).
         with(body: payload, headers: {
-            "X-Pusher-Key"    => Raptor::Config.app_key,
-            "X-Pusher-Secret" => hmac
+            "X-Raptor-Key"    => Raptor::Config.app_key,
+            "X-Raptor-Secret" => hmac
         })
     end
   end

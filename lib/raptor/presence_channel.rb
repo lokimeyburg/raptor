@@ -1,7 +1,7 @@
 # PresenceChannel class.
 #
 # Uses an EventMachine channel to let handlers interact with the
-# Pusher channel. Relay events received from Redis into the
+# Raptor channel. Relay events received from Redis into the
 # EM channel. Keeps data on the subscribers to send it to clients.
 #
 
@@ -120,7 +120,7 @@ module Raptor
         # Don't tell the channel subscriptions a new member has been added if the subscriber data
         # is already present in the subscriptions hash, i.e. multiple browser windows open.
         unless subscriptions.has_value? message['channel_data']
-          push payload('pusher_internal:member_added', message['channel_data'])
+          push payload('raptor_internal:member_added', message['channel_data'])
         end
         subscriptions[message['subscription_id']] = message['channel_data']
       else
@@ -128,7 +128,7 @@ module Raptor
         # still remains in the subscriptions hash, i.e. multiple browser windows open.
         subscriber = subscriptions.delete message['subscription_id']
         unless subscriptions.has_value? subscriber
-          push payload('pusher_internal:member_removed', { user_id: subscriber['user_id'] })
+          push payload('raptor_internal:member_removed', { user_id: subscriber['user_id'] })
         end
       end
     end

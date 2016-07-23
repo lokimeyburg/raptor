@@ -20,7 +20,7 @@ module Raptor
 
     def callback
       Proc.new {
-        connection.send_payload(channel_id, 'pusher_internal:subscription_succeeded', {
+        connection.send_payload(channel_id, 'raptor_internal:subscription_succeeded', {
           presence: {
             count: channel.subscribers.size,
             ids:   channel.ids,

@@ -24,7 +24,7 @@ module Raptor
     # the event name
     def onmessage(msg)
       msg   = JSON.parse msg
-      event = msg['event'].gsub(/^pusher:/, 'pusher_')
+      event = msg['event'].gsub(/^raptor:/, 'raptor_')
 
       if event =~ /^client-/
         msg['socket_id'] = connection.socket_id
@@ -53,13 +53,13 @@ module Raptor
       @socket.close_websocket
     end
 
-    def pusher_ping(msg)
-      send_payload nil, 'pusher:pong'
+    def raptor_ping(msg)
+      send_payload nil, 'raptor:pong'
     end
 
-    def pusher_pong msg; end
+    def raptor_pong msg; end
 
-    def pusher_subscribe(msg)
+    def raptor_subscribe(msg)
       channel_id = msg['data']['channel']
       klass      = subscription_klass channel_id
 
@@ -70,7 +70,7 @@ module Raptor
       end
     end
 
-    def pusher_unsubscribe(msg)
+    def raptor_unsubscribe(msg)
       channel_id      = msg['data']['channel']
       subscription_id = @subscriptions.delete(channel_id)
 

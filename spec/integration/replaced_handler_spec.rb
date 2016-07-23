@@ -4,7 +4,7 @@ require 'lib/raptor/handler.rb'
 class ReplacedHandler < Raptor::Handler
   def authenticate
     super
-    send_payload nil, 'pusher:info', { message: "Welcome!" }
+    send_payload nil, 'raptor:info', { message: "Welcome!" }
   end
 end
 
@@ -18,6 +18,6 @@ describe 'Replacable handler' do
       end
     end
 
-    msgs.last.should == { "event" => "pusher:info", "data" => { "message" => "Welcome!" } }
+    msgs.last.should == { "event" => "raptor:info", "data" => { "message" => "Welcome!" } }
   end
 end

@@ -30,7 +30,7 @@ module RaptorHelperMethods
     private
 
     def check_connection_established
-      if first_event != 'pusher:connection_established'
+      if first_event != 'raptor:connection_established'
         @failures << :connection_established
       end
     end

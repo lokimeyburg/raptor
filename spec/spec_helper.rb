@@ -5,7 +5,7 @@ require 'active_support/core_ext/hash'
 require 'eventmachine'
 require 'em-http-request'
 require 'em-websocket-client'
-require 'pusher'
+require 'raptor'
 require 'thin'
 require 'raptor_helper_methods'
 require 'have_attributes'
@@ -34,7 +34,7 @@ RSpec.configure do |config|
   config.fail_fast = true
   config.after(:each) { stop_raptor if @server_pid }
   config.before :all do
-    Pusher.tap do |p|
+    Raptor.tap do |p|
       p.host   = '0.0.0.0'
       p.port   = 4567
       p.app_id = '26051'

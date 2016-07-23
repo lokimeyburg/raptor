@@ -13,7 +13,7 @@ module Raptor
       digest   = OpenSSL::Digest::SHA256.new
       hmac     = OpenSSL::HMAC.hexdigest(digest, Raptor::Config.secret, payload)
 
-      EM::HttpRequest.new(Raptor::Config.webhook_url).post(body: payload, head: { "X-Pusher-Key" => Raptor::Config.app_key, "X-Pusher-Secret" => hmac })
+      EM::HttpRequest.new(Raptor::Config.webhook_url).post(body: payload, head: { "X-Raptor-Key" => Raptor::Config.app_key, "X-Raptor-Secret" => hmac })
         # TODO: Exponentially backed off retries for errors
     end
 

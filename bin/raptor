@@ -16,11 +16,11 @@ OptionParser.new do |opts|
     exit
   end
 
-  opts.on '-k', '--app_key APP_KEY', "Pusher application key. This parameter is required." do |k|
+  opts.on '-k', '--app_key APP_KEY', "Raptor application key. This parameter is required." do |k|
     options[:app_key] = k
   end
 
-  opts.on '-s', '--app_secret SECRET', "Pusher application secret. This parameter is required." do |k|
+  opts.on '-s', '--app_secret SECRET', "Raptor application secret. This parameter is required." do |k|
     options[:secret] = k
   end
 
@@ -63,7 +63,7 @@ OptionParser.new do |opts|
 
   %w<app_key secret>.each do |parameter|
     unless options[parameter.to_sym]
-      puts "--#{parameter} STRING is a required argument. Use your Pusher #{parameter}.\n"
+      puts "--#{parameter} STRING is a required argument. Use your Raptor #{parameter}.\n"
       puts opts
       exit
     end

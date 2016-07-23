@@ -7,15 +7,15 @@
       %span#count
         0
       Messages/Sec
-    %script{src: "/pusher.min.js"}
+    %script{src: "/raptor.min.js"}
     :javascript
       var count = 0
-      Pusher.log = function(data) {
+      Raptor.log = function(data) {
         console.log('\t\t', data);
       };
-      var pusher = new Pusher('765ec374ae0a69f4ce44');
-      pusher.bind('pusher:error', function(data) { alert(data['message']) })
-      var myChannel = pusher.subscribe('#{@channel}');
+      var raptor = new Raptor('765ec374ae0a69f4ce44');
+      raptor.bind('raptor:error', function(data) { alert(data['message']) })
+      var myChannel = raptor.subscribe('#{@channel}');
       myChannel.bind('an_event', function(data) {
         count++
       })

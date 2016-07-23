@@ -38,7 +38,7 @@ module RaptorHelperMethods
   end
 
   def new_websocket opts = {}
-    opts = { key: Pusher.key }.update opts
+    opts = { key: Raptor.key }.update opts
     uri = "ws://0.0.0.0:8080/app/#{opts[:key]}?client=js&version=2.1.4"
 
     EventMachine::WebSocketClient.connect(uri).tap { |ws| ws.errback &errback }
@@ -68,7 +68,7 @@ module RaptorHelperMethods
       # end
 
       # websocket.callback do
-      #   websocket.send_msg({ event: 'pusher:subscribe', data: { channel: 'MY_CHANNEL'} }.to_json ) 
+      #   websocket.send_msg({ event: 'raptor:subscribe', data: { channel: 'MY_CHANNEL'} }.to_json ) 
       # end
 
     end
@@ -97,18 +97,18 @@ module RaptorHelperMethods
     id      = options[:message]['data']['socket_id']
     name    = options[:name]
     user_id = options[:user_id]
-    Pusher['presence-channel'].authenticate(id, {user_id: user_id, user_info: {name: name}})
+    Raptor['presence-channel'].authenticate(id, {user_id: user_id, user_info: {name: name}})
   end
 
   def send_subscribe options
     auth = auth_from options
-    options[:user].send({event: 'pusher:subscribe',
+    options[:user].send({event: 'raptor:subscribe',
                   data: {channel: 'presence-channel'}.merge(auth)}.to_json)
   end
 
   def private_channel websocket, message
-    auth = Pusher['private-channel'].authenticate(message['data']['socket_id'])[:auth]
-    websocket.send({ event: 'pusher:subscribe',
+    auth = Raptor['private-channel'].authenticate(message['data']['socket_id'])[:auth]
+    websocket.send({ event: 'raptor:subscribe',
                      data: { channel: 'private-channel',
                auth: auth } }.to_json)
 

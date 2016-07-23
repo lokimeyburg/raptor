@@ -15,9 +15,9 @@ PATH
       thin (~> 1.6.1)
 
 PATH
-  remote: /Users/lokimeyburg/Documents/Projects/pusher-gem
+  remote: /Users/lokimeyburg/Documents/Projects/raptor-gem
   specs:
-    pusher (0.12.0)
+    raptor (0.12.0)
       httpclient (~> 2.3.0)
       multi_json (~> 1.0)
       signature (~> 0.1.6)
@@ -126,7 +126,7 @@ DEPENDENCIES
   em-websocket-client (~> 0.1.2)
   haml (~> 4.0.4)
   mocha (~> 0.14.0)
-  pusher!
+  raptor!
   rake
   raptor!
   rspec (~> 2.14.1)

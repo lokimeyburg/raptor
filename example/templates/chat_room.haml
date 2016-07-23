@@ -12,38 +12,38 @@
         %input{ type: 'text', id: 'message', name: 'message' }
     %div{ id: 'sidebar' }
       %ol{ id: 'presence' }
-    %script{src: "/pusher.min.js"}
+    %script{src: "/raptor.js"}
     %script{src: "/jquery.js"}
     :javascript
-      Pusher.host    = "#{@use_pusher ? 'ws.pusherapp.com' : '0.0.0.0' }"
-      Pusher.ws_port = "#{@use_pusher ? 80 : 8080}"
-      Pusher.wss_port = "#{@use_pusher ? 443 : 8080}"
-      Pusher.log = function(data) {
+      Raptor.host    = "#{@use_raptor ? 'ws.raptorapp.com' : '0.0.0.0' }"
+      Raptor.ws_port = "#{@use_raptor ? 80 : 8080}"
+      Raptor.wss_port = "#{@use_raptor ? 443 : 8080}"
+      Raptor.log = function(data) {
         console.log('\t\t', data);
       };
-      var pusher = new Pusher('#{Pusher.key}');
-      var myChannel = pusher.subscribe('presence-channel');
+      var raptor = new Raptor('#{Raptor.key}');
+      var myChannel = raptor.subscribe('presence-channel');
       myChannel.bind('chat_message', function(msg) {
         $('#messages').append("<li><strong>" + msg['sender'] + "</strong>: " + msg['body'] + "</li>")
       })
 
-      myChannel.bind('pusher:subscription_succeeded', function(members) {
+      myChannel.bind('raptor:subscription_succeeded', function(members) {
         members.each(function(member) {
           $('#presence').append($('<li>' + member.info.name + '</li>').attr('id', member.id))
         })
       })
 
-      pusher.bind('pusher:connection_disconnected', function(ev) {
+      raptor.bind('raptor:connection_disconnected', function(ev) {
         $('#presence').empty()
          $('#messages').append($('<li class="info">**** Unexpectedly lost connection to server ****</li>'))
       })
 
-      myChannel.bind('pusher:member_added', function(member) {
+      myChannel.bind('raptor:member_added', function(member) {
         $('#messages').append($('<li class="info">**** ' + member.info.name + ' entered the chat ****</li>'))
         $('#presence').append($('<li>' + member.info.name + '</li>').attr('id', member.id))
       })
 
-      myChannel.bind('pusher:member_removed', function(member) {
+      myChannel.bind('raptor:member_removed', function(member) {
         $('#messages').append($('<li class="info">**** ' + member.info.name + ' left the chat ****</li>'))
         $('#' + member.id).remove()
       })

@@ -20,7 +20,7 @@ describe 'Integration' do
         messages.should have_attributes connection_established: true,
           count: 2,
           id_present: true,
-          last_event: 'pusher_internal:subscription_succeeded'
+          last_event: 'raptor_internal:subscription_succeeded'
       end
     end
 
@@ -29,7 +29,7 @@ describe 'Integration' do
         messages  = em_stream do |websocket, messages|
           case messages.length
           when 1
-            websocket.send({ event: 'pusher:subscribe',
+            websocket.send({ event: 'raptor:subscribe',
                              data: { channel: 'private-channel',
                                      auth: 'bogus' } }.to_json)
           else
@@ -38,7 +38,7 @@ describe 'Integration' do
         end
 
         messages.should have_attributes connection_established: true, count: 2, id_present: true, last_event:
-          'pusher:error'
+          'raptor:error'
         messages.last['data']['message'].=~(/^Invalid signature: Expected HMAC SHA256 hex digest of/).should be_true
       end
     end

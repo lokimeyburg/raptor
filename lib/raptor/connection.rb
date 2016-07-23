@@ -21,12 +21,12 @@ module Raptor
     end
 
     def error e
-      send_payload nil, 'pusher:error', e
+      send_payload nil, 'raptor:error', e
     end
 
     def establish
       @socket_id = SecureRandom.uuid
-      send_payload nil, 'pusher:connection_established', { socket_id: @socket_id }
+      send_payload nil, 'raptor:connection_established', { socket_id: @socket_id }
     end
 
     private

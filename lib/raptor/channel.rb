@@ -1,7 +1,7 @@
 # Channel class.
 #
 # Uses an EventMachine channel to let clients interact with the
-# Pusher channel. Relay events received from Redis into the
+# Raptor channel. Relay events received from Redis into the
 # EM channel.
 #
 
