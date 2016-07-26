@@ -84,12 +84,12 @@ EM.epoll
 EM.kqueue
 
 EM.run do
-  File.tap { |f| require f.expand_path(f.join(f.dirname(__FILE__),'..', 'raptor.rb')) }
+  File.tap { |f| require f.expand_path(f.join(f.dirname(__FILE__),'..', 'raptor-server.rb')) }
   Raptor::Config.load options
   Raptor::Service.run
 
   puts "\n"
-  puts "Raptor #{Raptor::VERSION}"
+  puts "Raptor Server #{Raptor::VERSION}"
   puts "\"Clever girl.\""
   puts "\n"
 end
