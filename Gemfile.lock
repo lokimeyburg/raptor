@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    raptor (0.0.1)
+    raptor-server (0.0.1)
       activesupport (~> 4.0.1)
       em-hiredis (~> 0.2.1)
       em-http-request (~> 1.0.3)
@@ -15,9 +15,9 @@ PATH
       thin (~> 1.6.1)
 
 PATH
-  remote: /Users/lokimeyburg/Documents/Projects/raptor-gem
+  remote: ../raptor-gem
   specs:
-    raptor (0.12.0)
+    raptor (0.0.0)
       httpclient (~> 2.3.0)
       multi_json (~> 1.0)
       signature (~> 0.1.6)
@@ -33,7 +33,6 @@ GEM
       tzinfo (~> 0.3.37)
     addressable (2.3.5)
     atomic (1.1.14)
-    atomic (1.1.14-java)
     columnize (0.3.6)
     cookiejar (0.3.0)
     crack (0.4.2)
@@ -71,9 +70,7 @@ GEM
     haml (4.0.5)
       tilt
     hiredis (0.4.5)
-    hiredis (0.4.5-java)
     http_parser.rb (0.5.3)
-    http_parser.rb (0.5.3-java)
     httpclient (2.3.4.1)
     i18n (0.6.9)
     metaclass (0.0.2)
@@ -106,8 +103,6 @@ GEM
       rack (>= 1.0.0)
     thread_safe (0.1.3)
       atomic
-    thread_safe (0.1.3-java)
-      atomic
     tilt (1.4.1)
     timecop (0.7.1)
     tzinfo (0.3.38)
@@ -126,9 +121,9 @@ DEPENDENCIES
   em-websocket-client (~> 0.1.2)
   haml (~> 4.0.4)
   mocha (~> 0.14.0)
-  raptor!
   rake
   raptor!
+  raptor-server!
   rspec (~> 2.14.1)
   timecop (~> 0.7.0)
   webmock (~> 1.16.0)
