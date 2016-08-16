@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.name                        = 'raptor-server'
   s.version                     = RaptorServer::VERSION
   s.summary                     = 'Realtime messaging and presence server'
-  s.description                 = 'TODO: add a description'
+  s.description                 = 'Realtime messaging and presence server'
 
   s.required_ruby_version       = '>= 2.0.0'
 
