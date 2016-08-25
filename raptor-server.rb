@@ -14,6 +14,6 @@ EM.kqueue
 
 File.tap do |f|
   Dir[f.expand_path(f.join(f.dirname(__FILE__),'lib', 'raptor-server', '*.rb'))].each do |file|
-    Raptor.autoload File.basename(file, '.rb').camelize, file
+    RaptorServer.autoload File.basename(file, '.rb').camelize, file
   end
 end
