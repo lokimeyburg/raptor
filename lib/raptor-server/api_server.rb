@@ -18,7 +18,7 @@ module RaptorServer
     # Respond with HTTP 401 Unauthorized if request cannot be authenticated.
     error(Signature::AuthenticationError) { |c| halt 401, "401 UNAUTHORIZED\n" }
 
-    post '/apps/:app_id/events' do
+    post '/events' do
       authenticate
 
       # Event and channel data are now serialized in the JSON data
@@ -27,14 +27,6 @@ module RaptorServer
 
       # Send event to each channel
       data["channels"].each { |channel| publish(channel, data['name'], data['data'], data['socket_id']) }
-
-      return {}.to_json
-    end
-
-    post '/apps/:app_id/channels/:channel_id/events' do
-      authenticate
-
-      publish(params[:channel_id], params['name'],  request.body.read.tap{ |s| s.force_encoding('utf-8') }, params[:socket_id])
 
       return {}.to_json
     end
@@ -49,9 +41,7 @@ module RaptorServer
     end
 
     def authenticate
-      # authenticate request. exclude 'channel_id' and 'app_id' included by sinatra but not sent by RaptorServer.
-      # Raises Signature::AuthenticationError if request does not authenticate.
-      Signature::Request.new('POST', env['PATH_INFO'], params.except('captures', 'splat' , 'channel_id', 'app_id')).authenticate { |key| Signature::Token.new key, RaptorServer::Config.secret }
+      Signature::Request.new('POST', env['PATH_INFO'], params.except('captures', 'splat' , 'channel_id')).authenticate { |key| Signature::Token.new key, RaptorServer::Config.secret }
     end
 
     def publish(channel, event, data, socket_id = nil)

@@ -9,7 +9,7 @@ module RaptorServer
     end
 
     def subscribe
-      send_payload channel_id, 'raptor_internal:subscription_succeeded'
+      send_payload channel_id, '/raptor_internal/subscription_succeeded'
 
       channel.subscribe { |m| send_message m }
     end

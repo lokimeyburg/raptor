@@ -24,9 +24,9 @@ module RaptorServer
     # the event name
     def onmessage(msg)
       msg   = JSON.parse msg
-      event = msg['event'].gsub(/^raptor:/, 'raptor_')
+      event = msg['event'].gsub(/^\/raptor\//, 'raptor_')
 
-      if event =~ /^client-/
+      if event =~ /^\/client\//
         msg['socket_id'] = connection.socket_id
         Channel.send_client_message msg
       elsif respond_to? event, true
@@ -54,7 +54,7 @@ module RaptorServer
     end
 
     def raptor_ping(msg)
-      send_payload nil, 'raptor:pong'
+      send_payload nil, '/raptor/pong'
     end
 
     def raptor_pong msg; end
@@ -88,7 +88,7 @@ module RaptorServer
     end
 
     def subscription_klass channel_id
-      klass = channel_id.match(/^(private|presence)-/) do |match|
+      klass = channel_id.match(/^\/(private|presence)\//) do |match|
         RaptorServer.const_get "#{match[1]}_subscription".classify
       end
 

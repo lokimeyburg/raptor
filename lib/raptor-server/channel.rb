@@ -18,7 +18,7 @@ module RaptorServer
 
     class << self
       def from channel_id
-        klass = channel_id[/^presence-/] ? PresenceChannel : Channel
+        klass = channel_id[/^\/presence\//] ? PresenceChannel : Channel
         klass.find_or_create_by_channel_id channel_id
       end
 
@@ -69,11 +69,11 @@ module RaptorServer
     # Send an event received from Redis to the EventMachine channel
     # which will send it to subscribed clients.
     def dispatch(message, channel)
-      push(message.to_json) unless channel =~ /^raptor:/
+      push(message.to_json) unless channel =~ /^\/raptor\//
     end
 
     def authenticated?
-      channel_id =~ /^private-/ || channel_id =~ /^presence-/
+      channel_id =~ /^\/private\// || channel_id =~ /^\/presence\//
     end
   end
 end

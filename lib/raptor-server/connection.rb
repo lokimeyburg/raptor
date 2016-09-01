@@ -26,7 +26,7 @@ module RaptorServer
 
     def establish
       @socket_id = SecureRandom.uuid
-      send_payload nil, 'raptor:connection_established', { socket_id: @socket_id }
+      send_payload nil, '/raptor/connection_established', { socket_id: @socket_id }
     end
 
     private

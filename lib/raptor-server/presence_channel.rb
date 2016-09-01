@@ -16,7 +16,7 @@ module RaptorServer
 
     # Send an event received from Redis to the EventMachine channel
     def dispatch(message, channel)
-      if channel =~ /^raptor:/
+      if channel =~ /^\/raptor\//
         # Messages received from the Redis channel raptor:*  carry info on
         # subscriptions. Update our subscribers accordingly.
         update_subscribers message
@@ -28,7 +28,7 @@ module RaptorServer
     def initialize(attrs)
       super
       # Also subscribe the raptor daemon to a Redis channel used for events concerning subscriptions.
-      RaptorServer::Redis.subscribe 'raptor:connection_notification'
+      RaptorServer::Redis.subscribe '/raptor/connection_notification'
     end
 
     def subscribe(msg, callback, &blk)
@@ -98,7 +98,7 @@ module RaptorServer
     def publish_connection_notification(payload, retry_count=0)
       # Send a subscription notification to the global raptor:connection_notification
       # channel.
-      RaptorServer::Redis.publish('raptor:connection_notification', payload.to_json).
+      RaptorServer::Redis.publish('/raptor/connection_notification', payload.to_json).
         tap { |r| r.errback { publish_connection_notification payload, retry_count.succ unless retry_count == 5 } }
     end
 
@@ -120,7 +120,7 @@ module RaptorServer
         # Don't tell the channel subscriptions a new member has been added if the subscriber data
         # is already present in the subscriptions hash, i.e. multiple browser windows open.
         unless subscriptions.has_value? message['channel_data']
-          push payload('raptor_internal:member_added', message['channel_data'])
+          push payload('/raptor_internal/member_added', message['channel_data'])
         end
         subscriptions[message['subscription_id']] = message['channel_data']
       else
@@ -128,7 +128,7 @@ module RaptorServer
         # still remains in the subscriptions hash, i.e. multiple browser windows open.
         subscriber = subscriptions.delete message['subscription_id']
         unless subscriptions.has_value? subscriber
-          push payload('raptor_internal:member_removed', { user_id: subscriber['user_id'] })
+          push payload('/raptor_internal/member_removed', { user_id: subscriber['user_id'] })
         end
       end
     end
