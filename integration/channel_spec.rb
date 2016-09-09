@@ -7,12 +7,27 @@ describe 'Integration:' do
 
   describe 'channel' do
     it 'pushes messages to interested websocket connections' do
+
+      em_stream do |websocket, messages|
+        puts messages
+        websocket.callback do
+          websocket.send_msg("YAAAAAAAAA") 
+        end
+      end
+
       messages = em_stream do |websocket, messages|
+
+        websocket.callback do
+          websocket.send_msg({ event: 'raptor:subscribe', data: { channel: 'MY_CHANNEL'} }.to_json ) 
+        end
+
         case messages.length
         when 1
-          websocket.callback { websocket.send({ event: 'raptor:subscribe', data: { channel: 'MY_CHANNEL'} }.to_json) }
+          websocket.callback do
+            websocket.send_msg({ event: 'raptor:subscribe', data: { channel: 'MY_CHANNEL'} }.to_json ) 
+          end
         when 2
-          Raptor.trigger 'MY_CHANNEL', 'an_event', some: "Mit Raben Und Wölfen"
+          Raptor['MY_CHANNEL'].trigger 'an_event', some: "Lorem ipsum sit doler"
         when 3
           EM.stop
         end
@@ -52,7 +67,7 @@ describe 'Integration:' do
               when 1
                 client2.callback { client2.send({ event: 'raptor:subscribe', data: { channel: 'MY_CHANNEL'} }.to_json) }
               when 2
-                Raptor.trigger 'MY_CHANNEL', 'an_event', { some: 'data' }
+                Raptor['MY_CHANNEL'].trigger 'an_event', { some: 'data' }
                 EM.next_tick { EM.stop }
             end
           end
@@ -79,7 +94,7 @@ describe 'Integration:' do
               client2.callback { client2.send({ event: 'raptor:subscribe', data: { channel: 'MY_CHANNEL'} }.to_json) }
             when 2
               socket_id = client1_messages.first['data']['socket_id']
-              Raptor.trigger 'MY_CHANNEL', 'an_event', { some: 'data' }, socket_id
+              Raptor['MY_CHANNEL'].trigger 'an_event', { some: 'data' }, socket_id
             when 3
               EM.stop
             end

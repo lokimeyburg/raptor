@@ -30,7 +30,10 @@ module RaptorHelperMethods
     private
 
     def check_connection_established
-      if first_event != 'raptor:connection_established'
+      if first_event != '/raptor_internal/subscription_succeeded'
+        puts "------------ FIRST EVENT"
+        puts first_event
+
         @failures << :connection_established
       end
     end

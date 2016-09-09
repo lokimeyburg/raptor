@@ -80,7 +80,7 @@ module RaptorServer
     private
 
     def app_key
-      @handshake.path.split('/')[2]
+      @handshake.path.split('/')[1]
     end
 
     def valid_app_key? app_key

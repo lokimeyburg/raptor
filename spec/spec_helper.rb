@@ -17,7 +17,7 @@ require 'webmock/rspec'
 
 WebMock.disable!
 
-module Raptor; end
+module RaptorServer; end
 
 def errback
   @errback ||= Proc.new { |e| 
@@ -37,7 +37,6 @@ RSpec.configure do |config|
     Raptor.tap do |p|
       p.host   = '0.0.0.0'
       p.port   = 4567
-      p.app_id = '26051'
       p.secret = '19b74451a08ea35ceed7'
       p.key    = '765ec374ae0a69f4ce44'
     end

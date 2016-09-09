@@ -41,7 +41,7 @@ module RaptorServer
     end
 
     def authenticate
-      Signature::Request.new('POST', env['PATH_INFO'], params.except('captures', 'splat' , 'channel_id')).authenticate { |key| Signature::Token.new key, RaptorServer::Config.secret }
+      Signature::Request.new('POST', env['PATH_INFO'], params.except('captures', 'splat', 'channel_id')).authenticate { |key| Signature::Token.new key, RaptorServer::Config.secret }
     end
 
     def publish(channel, event, data, socket_id = nil)
