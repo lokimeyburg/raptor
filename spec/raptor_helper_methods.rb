@@ -11,7 +11,7 @@ module RaptorHelperMethods
                websocket_port:   '8080',
                app_key:          '765ec374ae0a69f4ce44',
                secret:           '19b74451a08ea35ceed7',
-               debug:            false  }
+               debug:            true  }
 
       RaptorServer::Config.load opts.merge(options)
       RaptorServer::Service.run
@@ -41,8 +41,7 @@ module RaptorHelperMethods
     opts = { key: Raptor.key }.update opts
     uri = "ws://0.0.0.0:8080/#{opts[:key]}?client=js&version=2.1.4"
 
-
-    EventMachine::WebSocketClient.connect(uri).tap { |ws| ws.errback &errback }
+    EventMachine::WebSocketClient.connect(uri).tap do |ws| ws.errback(&errback) end
   end
 
   def em_stream opts = {}
@@ -52,8 +51,7 @@ module RaptorHelperMethods
       websocket = new_websocket opts
 
       websocket.stream do |message|
-        # message = JSON.parse(message)
-
+        puts "message: #{message}"
 
         messages << JSON.parse(message.data)
         yield websocket, messages
