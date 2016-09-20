@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version       = '>= 2.0.0'
 
-  s.author                      = 'Loki Meyburg'
-  s.email                       = 'loki@medeo.ca'
+  s.author                      = 'Toronto Raptors'
+  s.email                       = 'info@example.com'
   s.homepage                    = 'https://github.com/lokimeyburg/raptor-server'
 
   s.add_dependency                'eventmachine',     '~> 1.0.3'

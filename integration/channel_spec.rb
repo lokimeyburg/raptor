@@ -11,20 +11,20 @@ describe 'Integration:' do
       em_stream do |websocket, messages|
         puts messages
         websocket.callback do
-          websocket.send_msg("YAAAAAAAAA") 
+          websocket.send_msg("YAAAAAAAAA")
         end
       end
 
       messages = em_stream do |websocket, messages|
 
         websocket.callback do
-          websocket.send_msg({ event: 'raptor:subscribe', data: { channel: 'MY_CHANNEL'} }.to_json ) 
+          websocket.send_msg({ event: 'raptor:subscribe', data: { channel: 'MY_CHANNEL'} }.to_json )
         end
 
         case messages.length
         when 1
           websocket.callback do
-            websocket.send_msg({ event: 'raptor:subscribe', data: { channel: 'MY_CHANNEL'} }.to_json ) 
+            websocket.send_msg({ event: 'raptor:subscribe', data: { channel: 'MY_CHANNEL'} }.to_json )
           end
         when 2
           Raptor['MY_CHANNEL'].trigger 'an_event', some: "Lorem ipsum sit doler"
