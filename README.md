@@ -6,6 +6,7 @@ Raptor is a realtime messaging and presence server written in Ruby.
 It's built for anyone who wants to run and manage their own realtime messaging server.
 The architecure uses EventMachine for concurrency, Websockets for realtime communication and Redis for scaling.
 Raptor takes a lot of inspiration from the Pusher protocol (http://www.pusher.com) - basically it started as an excercise to copy it.
+
 The velociraptor is also the best dinosaur that ever lived and means "quick-thief".
 
 ### Why
@@ -22,7 +23,8 @@ This is what the URL structure means:
 
 ```
 /private: the type of channel we're subscribing to
-
+```
+```
 /my-photo-gallery/comments : the url we're subscribed to
 ```
 
@@ -38,11 +40,11 @@ Because Jurassic Park (http://www.youtube.com/watch?v=TO5wryDdEI0)
 
 ### Features
 
-Authentication - use your Ruby app to authenticate users's access to a channel
-Webhooks - get notified about events that occur within Raptor
-Presence - see who's online and get notified when they leave or join
-Scalable - Raptor stays in-sync across as many instances as you need
-Secure - use SSL to secure your websockets
+- Authentication - use your Ruby app to authenticate users's access to a channel
+- Webhooks - get notified about events that occur within Raptor
+- Presence - see who's online and get notified when they leave or join
+- Scalable - Raptor stays in-sync across as many instances as you need
+- Secure - use SSL to secure your websockets
 
 Next up:
 
