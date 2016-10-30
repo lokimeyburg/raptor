@@ -1,4 +1,13 @@
-raptor let's you build realtime Ruby, Rails and Javascript apps.
+```
+    ____              __            
+   / __ \____ _____  / /_____  _____
+  / /_/ / __ `/ __ \/ __/ __ \/ ___/
+ / _, _/ /_/ / /_/ / /_/ /_/ / /    
+/_/ |_|\__,_/ .___/\__/\____/_/     
+           /_/                                                                                                                             
+```
+
+Raptor let's you build realtime Ruby, Rails and Javascript apps.
 
 ## Introduction
 
