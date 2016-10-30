@@ -1,0 +1,14 @@
+{
+  "name": "raptor",
+  "version": "0.0.0",
+  "dependencies": {
+    "lodash": "~2.4.1",
+    "faye-websocket": "~0.7.2",
+    "express": "~3.10"
+  },
+  "devDependencies": {
+    "jasmine-node": "1.14.3",
+    "lodash": "~2.4.1",
+    "faye-websocket": "~0.7.2"
+  }
+}

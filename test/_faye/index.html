@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Faye push</title>
+    <meta charset="utf-8" />
+
+<style type="text/css" media="screen">
+    #editor { 
+        position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+    }
+    #send-button {
+        position: absolute; right: 10px; top: 10px; z-index: 100000; font-size: 1.5em;
+    }
+</style>
+
+    <script src="assets/ace.js"></script>
+    <script src="assets/faye.js"></script>
+</head>
+<body>
+
+    <input type="submit" id="send-button" value="Send Message">
+
+    <div id="editor">{
+  "channel": "/organizations/medeo",
+  "message": {
+    "type": "appointment/update",
+    "body": {
+      "id": 12880,
+      "start_time": "12:00",
+      "end_time": "12:15",
+      "status": "scheduled",
+      "date": "2014-03-20",
+      "patient": {
+        "id": 90176,
+        "first_name": "Carolyne",
+        "last_name": "Waelchi"
+      },
+      "staff_member": {
+        "id": 880,
+        "first_name": "Felton",
+        "last_name": "Boyle"
+      }
+    }
+  }
+}</div>
+
+    <script>
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.getSession().setMode("ace/mode/json");
+
+        window.onload = function(){
+            var client = window.client = new Faye.Client("/faye"),
+                button = document.getElementById("send-button");
+
+            button.onclick = function(){
+                var msgDef = JSON.parse(editor.getValue());
+                client.publish(msgDef.channel, msgDef.message);
+            }
+        }
+
+    </script>
+</body>
+</html>
