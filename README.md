@@ -11,7 +11,7 @@ The velociraptor is also the best dinosaur that ever lived and means "quick-thie
 
 ### Why
 
-Raptor started as a project to build my own messaging server to replace Faye because I needed a better way to know who was online and also because I needed to control who knew who was online. I really liked how Pusher used different types of channels to expose more features and security, so I started implementing their three main channel types: public, private and presence channels. I added a fourth type of channel called a 'privilaged' channel which let's only privilaged users see who's online and be able to publish messages on the channel (think UNIX-style permissions). Raptor also uses URLs to define realtime resources since this leads to a more RESTful implementation.
+Raptor started as a project to build my own messaging server to replace [Faye|https://faye.jcoglan.com/ruby.html] because I needed a better way to manage presence (who's online and in which channels). I really liked how [Pusher|https://pusher.com/] used different types of channels to expose more features and security, so I started implementing their three main channel types: public, private and presence channels. I added a fourth type of channel called a 'privilaged' channel which let's only privilaged users see who's online and be able to publish messages on the channel (think UNIX-style permissions). Raptor also uses URLs to define realtime resources since this leads to a more RESTful implementation.
 
 To subscribe to realtime comments on your photo gallery, you'd subscribe to: 
 
@@ -70,20 +70,3 @@ $ raptor
 # Channels
 
 There are three types of channels: public, private and public.
-
-### Public channels
-
-
-
-
-
-
-# History at Medeo
-
-History lesson:
-
-I loved using Pusher on previous projects but when we (https://www.medeo.ca/about) started building Medeo, using a hosted a realtime server that was not our own (like Pusher) was no longer an option because the healthcare industry is extremely regulated by the Health Information Protection Act (HIPA).
-At Medeo, we used Faye for over a year for simple realtime messaging and it was exactly what we needed. But as we grew, we needed more from Faye: like better awareness of who's online and also better privacy control. So, we set off to explore two other options: using XMPP (http://prosody.im/) or rolling our own messaging server (codenamed 'Raptor').
-In the end: we chose to stick to Faye after incorporating a lot of what we wrote in Raptor as extensions for Faye.
-
-I still use Raptor a lot on personl projects since our custom version of Faye is overkill. (write about why I opensourced it)
