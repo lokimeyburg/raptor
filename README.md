@@ -20,7 +20,7 @@ The velociraptor is also the best dinosaur that ever lived and means "quick-thie
 
 ### Why
 
-Raptor started as a project to build my own messaging server to replace [Faye|https://faye.jcoglan.com/ruby.html] because I needed a better way to manage presence (who's online and in which channels). I really liked how [Pusher|https://pusher.com/] used different types of channels to expose more features and security, so I started implementing their three main channel types: public, private and presence channels. I added a fourth type of channel called a 'privilaged' channel which let's only privilaged users see who's online and be able to publish messages on the channel (think UNIX-style permissions). Raptor also uses URLs to define realtime resources since this leads to a more RESTful implementation.
+Raptor started as a project to build my own messaging server to replace [Faye](https://faye.jcoglan.com/ruby.html) because I needed a better way to manage presence (who's online and in which channels). I really liked how [Pusher](https://pusher.com/) used different types of channels to expose more features and security, so I started implementing their three main channel types: public, private and presence channels. I added a fourth type of channel called a 'privilaged' channel which let's only privilaged users see who's online and be able to publish messages on the channel (think UNIX-style permissions). Raptor also uses URLs to define realtime resources since this leads to a more RESTful implementation.
 
 To subscribe to realtime comments on your photo gallery, you'd subscribe to: 
 
